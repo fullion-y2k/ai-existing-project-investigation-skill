@@ -1,0 +1,4 @@
+interface:
+  display_name: "Existing Project Investigation"
+  short_description: "Bounded investigation workflow for existing code changes."
+  default_prompt: "Use this skill to investigate an existing project issue or feature request before implementation."
