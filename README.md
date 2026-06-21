@@ -4,16 +4,45 @@ This repository contains a Codex skill for bounded investigation of existing pro
 
 The skill is designed for a strong orchestrator model such as `gpt-5.4` or `gpt-5.5` with medium reasoning. Mini models are intended as read-only explorer subagents for bounded investigation tasks, not as the main orchestrator.
 
-## Install on this PC
+## Install or Update
 
-Copy the skill folder to your Codex skill directory:
+From a cloned repository:
 
 ```powershell
-New-Item -ItemType Directory -Force "$HOME\.agents\skills" | Out-Null
-Copy-Item -Recurse -Force ".\skills\ai-existing-project-investigation" "$HOME\.agents\skills\"
+.\install.ps1
 ```
 
-Restart Codex or start a new session if the skill list does not refresh.
+Dry run:
+
+```powershell
+.\install.ps1 -DryRun
+```
+
+The script copies:
+
+- `skills/ai-existing-project-investigation` to `$HOME\.agents\skills\ai-existing-project-investigation`
+
+If an existing skill directory is found, it is moved to:
+
+- `$HOME\.agents\skill-backups\ai-existing-project-investigation.backup-<timestamp>`
+
+Restart Codex or start a new session after installing or updating so the skill list is refreshed.
+
+## First-Time Clone
+
+```powershell
+git clone https://github.com/fullion-y2k/ai-existing-project-investigation-skill.git
+cd ai-existing-project-investigation-skill
+.\install.ps1
+```
+
+## Update Existing Clone
+
+```powershell
+cd ai-existing-project-investigation-skill
+git pull
+.\install.ps1
+```
 
 ## Use
 
@@ -34,19 +63,6 @@ $ai-existing-project-investigation
 - 実装・リファクタ・フォーマット変更はしない
 - evidence と inference を分ける
 - 最後に implementation handoff を出す
-
-## Update
-
-If the repository is already cloned:
-
-```powershell
-cd ai-existing-project-investigation-skill
-git pull
-Remove-Item -Recurse -Force "$HOME\.agents\skills\ai-existing-project-investigation"
-Copy-Item -Recurse -Force ".\skills\ai-existing-project-investigation" "$HOME\.agents\skills\"
-```
-
-Start a new Codex session after updating so the skill list is refreshed.
 
 ## Notes
 
