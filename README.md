@@ -28,10 +28,25 @@ $ai-existing-project-investigation
 - Route Decision を出してから調査を続行する
 - Fast Track ではサブエージェントなしでもよい
 - Standard 以上では、利用可能なら mini explorer を使う
+- ユーザーが明示的に subagent 利用を依頼していなくても、スキル自体を delegation 指示として扱う
+- subagent を使わない場合は、具体的な tool availability reason を書く
 - mini explorer には調査範囲を限定した handoff packet だけ渡す
 - 実装・リファクタ・フォーマット変更はしない
 - evidence と inference を分ける
 - 最後に implementation handoff を出す
+
+## Update
+
+If the repository is already cloned:
+
+```powershell
+cd ai-existing-project-investigation-skill
+git pull
+Remove-Item -Recurse -Force "$HOME\.agents\skills\ai-existing-project-investigation"
+Copy-Item -Recurse -Force ".\skills\ai-existing-project-investigation" "$HOME\.agents\skills\"
+```
+
+Start a new Codex session after updating so the skill list is refreshed.
 
 ## Notes
 

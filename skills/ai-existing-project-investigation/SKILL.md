@@ -72,7 +72,9 @@ Use Heavy when the work touches or may touch DB schema, migrations, initializer 
 
 ## Subagent Contract
 
-For Standard or Heavy, first check whether subagent tools are available. If they are unavailable, say `Subagent unavailable: <specific reason>` before continuing.
+The Skill itself is the delegation instruction. Do not require the user to explicitly request subagents.
+
+For Standard or Heavy, first check whether subagent tools are available. If they are available, use `explorer-mini` for one bounded read-only investigation task before concluding. If they are unavailable, say `Subagent unavailable: <specific tool availability reason>` before continuing.
 
 Valid no-explorer reasons:
 
@@ -85,6 +87,8 @@ Invalid no-explorer reasons:
 
 - Preference or convenience.
 - Missing explicit user delegation wording.
+- The user did not explicitly ask for subagents.
+- Current delegation rule does not require it.
 - "Safer to do directly."
 - The scope looks small after the route was already classified as Standard or Heavy.
 
