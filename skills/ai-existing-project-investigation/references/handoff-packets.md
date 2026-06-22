@@ -19,6 +19,26 @@ Required verification:
 Blocker return format:
 ```
 
+## Explorer Ticket
+
+Use this shorter ticket for Standard and Heavy routes before the orchestrator performs deep file reading.
+
+```text
+Explorer Ticket
+Task:
+Why this is delegated:
+Allowed search roots:
+Allowed search terms:
+Files already known:
+Do not read:
+Do not do:
+Evidence needed:
+Stop and return if:
+Output limit:
+```
+
+Default output limit: 10 bullets plus file paths and command names. No diary.
+
 ## Explorer Output
 
 ```text
@@ -63,6 +83,7 @@ Tell explorers:
 - Do not edit files.
 - Do not ask the user questions.
 - Do not broaden scope without evidence.
+- Do not decide the overall investigation route.
 - Return blockers to the orchestrator.
 - Mark evidence and inference separately.
 - Keep the result short enough for direct orchestration.

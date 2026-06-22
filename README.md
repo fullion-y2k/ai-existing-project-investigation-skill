@@ -57,6 +57,8 @@ $ai-existing-project-investigation
 - Route Decision を出してから調査を続行する
 - Fast Track ではサブエージェントなしでもよい
 - Standard 以上では、利用可能なら mini explorer を使う
+- Standard 以上では、オーケストレーターが深いファイル読み取りを始める前に Explorer Ticket を切る
+- オーケストレーターは頭脳として方針・統合・判断に集中し、ファイル読み取りは explorer に寄せる
 - ユーザーが明示的に subagent 利用を依頼していなくても、スキル自体を delegation 指示として扱う
 - subagent を使わない場合は、具体的な tool availability reason を書く
 - mini explorer には調査範囲を限定した handoff packet だけ渡す
