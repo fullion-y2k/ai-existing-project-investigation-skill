@@ -2,11 +2,13 @@
 
 Use compact packets. Do not include full conversation dumps, long code paste, duplicated requirements, or diary-style reports.
 
+Every `Worktree Lock` block must include `Confirmed working folder`, `Expected git top-level`, `Allowed read root`, `Allowed edit root`, and known forbidden sibling worktrees.
+
 ## Explorer Input
 
 ```text
 Explorer Input
-Confirmed working folder:
+Worktree Lock:
 Objective:
 Acceptance criteria:
 Route:
@@ -26,7 +28,7 @@ Use this shorter ticket for Standard and Heavy routes before the orchestrator pe
 
 ```text
 Explorer Ticket
-Confirmed working folder:
+Worktree Lock:
 Task:
 Why this is delegated:
 Allowed search roots:
@@ -45,7 +47,8 @@ Default output limit: 10 bullets plus file paths and command names. No diary.
 
 ```text
 Explorer Output
-Confirmed working folder used:
+Worktree Lock used:
+Worktree verified:
 Findings:
 Evidence:
 Files read:
@@ -63,7 +66,8 @@ Use this only after investigation is complete.
 
 ```text
 Implementation Handoff
-Confirmed working folder:
+Worktree Lock:
+Worktree verified:
 Objective:
 Acceptance criteria:
 Likely cause / change point:
@@ -88,8 +92,10 @@ Tell explorers:
 - Do not ask the user questions.
 - Do not broaden scope without evidence.
 - Do not decide the overall investigation route.
-- Use only the confirmed working folder.
-- Return a blocker if the tool starts in a different directory, a different git root appears, or the assigned path is outside the confirmed folder.
+- Use only the Worktree Lock paths.
+- Before any repository search, file read, edit, test, or build, verify current directory and git top-level against the Worktree Lock.
+- Return `BLOCKER: worktree mismatch` if the lock is missing, the tool starts in a different directory, a different git root appears, or any assigned path is outside the lock.
+- Do not infer, search for, or `cd` into a similar repo/worktree.
 - Return blockers to the orchestrator.
 - Mark evidence and inference separately.
 - Keep the result short enough for direct orchestration.
