@@ -26,6 +26,27 @@ This skill is not an implementation workflow. If the user asks to implement afte
 - Do not implement, refactor, reformat, or edit application code.
 - Do not run destructive commands or write to production-like systems.
 - For Standard or Heavy, keep the orchestrator as the brain, not the file reader.
+- Confirm the working folder before project investigation and require every subagent to use that confirmed folder.
+
+## Workspace Confirmation Gate
+
+This gate runs before Route Decision and before reading project files.
+
+1. Identify the intended working folder or worktree from the user request, current directory, or explicit path.
+2. Show the candidate folder to the user and ask for confirmation before investigation:
+
+```text
+Workspace Confirmation
+Candidate working folder:
+Reason:
+I will use this folder for the orchestrator and all subagents. OK to continue?
+```
+
+3. Do not inspect project files, run repository searches, or delegate subagents until the user confirms.
+4. After confirmation, record the exact absolute path as `Confirmed working folder`.
+5. The orchestrator must pass `Confirmed working folder` to every subagent.
+6. Every command, search root, file path, artifact path, and handoff packet must stay inside the confirmed folder unless the user explicitly approves another path.
+7. If any tool starts in a different directory or discovers a different git root/worktree, stop and ask for confirmation again.
 
 ## Route Decision
 
@@ -33,6 +54,7 @@ Start by producing this checkpoint, then continue the investigation unless a sto
 
 ```text
 Investigation Route Decision
+Confirmed working folder:
 Route:
 Reasons:
 Blocking questions:
@@ -116,16 +138,17 @@ Use the handoff and output formats in `references/handoff-packets.md`.
 
 ## Investigation Method
 
-1. Restate the investigation objective and acceptance criteria from the user request or specification.
-2. Classify Fast Track, Standard, or Heavy.
-3. Search narrowly first: names, routes, symbols, error text, config keys, schema names.
-4. For Standard or Heavy, create and delegate an Explorer Ticket before deep file reading.
-5. Read only files that explain the code path or impact boundary.
-6. Keep a list of files read and important candidates not read.
-7. Build cause hypotheses from evidence.
-8. Disprove or downgrade weak hypotheses.
-9. Identify the smallest plausible implementation area.
-10. Report risks, blockers, and what should be verified during implementation.
+1. Run Workspace Confirmation Gate and wait for user confirmation.
+2. Restate the investigation objective and acceptance criteria from the user request or specification.
+3. Classify Fast Track, Standard, or Heavy.
+4. Search narrowly first inside the confirmed folder: names, routes, symbols, error text, config keys, schema names.
+5. For Standard or Heavy, create and delegate an Explorer Ticket before deep file reading.
+6. Read only files inside the confirmed folder that explain the code path or impact boundary.
+7. Keep a list of files read and important candidates not read.
+8. Build cause hypotheses from evidence.
+9. Disprove or downgrade weak hypotheses.
+10. Identify the smallest plausible implementation area.
+11. Report risks, blockers, and what should be verified during implementation.
 
 For detailed report templates, read `references/report-templates.md`.
 
@@ -145,6 +168,7 @@ End with:
 
 ```text
 Investigation Report
+Confirmed working folder:
 Route:
 Objective:
 Acceptance criteria understood:

@@ -54,6 +54,9 @@ $ai-existing-project-investigation
 
 ## Expected Behavior
 
+- 調査前に作業フォルダ/worktree をユーザーへ確認し、OK が出るまで project file 調査に入らない
+- 確認済み作業フォルダを Route Decision、Explorer Ticket、Final Report に含める
+- 司令塔と全 subagent は、確認済み作業フォルダ内だけを使う
 - Route Decision を出してから調査を続行する
 - Fast Track ではサブエージェントなしでもよい
 - Standard 以上では、利用可能なら mini explorer を使う

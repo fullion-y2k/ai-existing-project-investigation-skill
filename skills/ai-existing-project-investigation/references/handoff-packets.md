@@ -6,6 +6,7 @@ Use compact packets. Do not include full conversation dumps, long code paste, du
 
 ```text
 Explorer Input
+Confirmed working folder:
 Objective:
 Acceptance criteria:
 Route:
@@ -25,6 +26,7 @@ Use this shorter ticket for Standard and Heavy routes before the orchestrator pe
 
 ```text
 Explorer Ticket
+Confirmed working folder:
 Task:
 Why this is delegated:
 Allowed search roots:
@@ -43,6 +45,7 @@ Default output limit: 10 bullets plus file paths and command names. No diary.
 
 ```text
 Explorer Output
+Confirmed working folder used:
 Findings:
 Evidence:
 Files read:
@@ -60,6 +63,7 @@ Use this only after investigation is complete.
 
 ```text
 Implementation Handoff
+Confirmed working folder:
 Objective:
 Acceptance criteria:
 Likely cause / change point:
@@ -84,6 +88,8 @@ Tell explorers:
 - Do not ask the user questions.
 - Do not broaden scope without evidence.
 - Do not decide the overall investigation route.
+- Use only the confirmed working folder.
+- Return a blocker if the tool starts in a different directory, a different git root appears, or the assigned path is outside the confirmed folder.
 - Return blockers to the orchestrator.
 - Mark evidence and inference separately.
 - Keep the result short enough for direct orchestration.
