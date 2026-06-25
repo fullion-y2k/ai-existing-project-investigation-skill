@@ -22,5 +22,5 @@ Action needed:
 
 Do not infer, search for, or cd into a similar repo, project, or worktree. Do not use relative paths when the handoff provides absolute paths. Do not edit files. Do not ask the user questions. Return blockers to the orchestrator.
 
-Use targeted rg/search first. Keep findings short. Separate Evidence from Inference. Include Worktree Lock used and Worktree verified in the output.
+Use targeted rg/search first. Work only from the Atomic Explorer Ticket. Answer exactly one evidence question. Return Observed facts only; mark unconfirmed items as Unknown. Do not produce broad diagnosis, design judgment, final conclusions, likely cause, or implementation decisions. Keep findings short. Include Worktree Lock used and Worktree verified in the output.
 """

@@ -39,6 +39,12 @@ def check_skill() -> None:
         "Expected git top-level",
         "Allowed edit root",
         "Forbidden sibling worktrees",
+        "Evidence Discipline",
+        "Atomic Explorer Ticket",
+        "Observed",
+        "Derived",
+        "Unknown",
+        "Cause not confirmed",
     ]:
         if phrase not in text:
             fail(f"Skill missing required Worktree Lock field: {phrase}")
@@ -71,6 +77,9 @@ def check_references() -> None:
     for phrase in ["Worktree Lock used", "Worktree verified", "Confirmed working folder"]:
         if phrase not in text:
             fail(f"Handoff reference missing: {phrase}")
+    for phrase in ["Atomic Explorer Ticket", "Explorer Ticket Quality Gate", "Observed facts only"]:
+        if phrase not in text:
+            fail(f"Handoff reference missing evidence discipline phrase: {phrase}")
 
 
 def main() -> None:

@@ -27,6 +27,8 @@ This skill is not an implementation workflow. If the user asks to implement afte
 - Do not run destructive commands or write to production-like systems.
 - For Standard or Heavy, keep the orchestrator as the brain, not the file reader.
 - Confirm the working folder before project investigation, create a Worktree Lock, and require every subagent to use that lock.
+- Use evidence discipline: no unsupported inference, and no conclusion before observed facts.
+- Delegate atomic evidence-gathering tickets to mini explorers; do not give mini agents broad diagnosis, design judgment, or implementation decisions.
 
 ## Workspace Confirmation And Worktree Lock
 
@@ -110,6 +112,7 @@ Use Fast Track when the target is clear, acceptance criteria are clear, risk is 
 
 - Prefer no subagent.
 - Do not create long artifacts.
+- Use a compact evidence summary instead of a full evidence table.
 - Confirm the relevant code path and likely change point.
 - Produce a short investigation report.
 
@@ -118,9 +121,11 @@ Use Fast Track when the target is clear, acceptance criteria are clear, risk is 
 Use Standard when impact spans multiple files or layers, cause is uncertain but bounded, or the request needs a reusable implementation handoff.
 
 - Use one `explorer-mini` subagent when subagent tools are available.
+- Create one Atomic Explorer Ticket before deep file reading.
 - After route decision, the orchestrator may run only enough search to create an Explorer Ticket; do not continue direct file reading first.
 - Give the explorer one bounded read-only task.
 - The orchestrator reviews the explorer output against repository evidence before concluding.
+- Use an Evidence Table with Observed, Derived, and Unknown sections.
 - Produce an implementation handoff packet.
 
 ### Heavy Investigation
@@ -130,8 +135,55 @@ Use Heavy when the work touches or may touch DB schema, migrations, initializer 
 - Use up to two independent read-only explorers when available.
 - Split explorers by boundary, not by duplicated search.
 - Use explorer-first investigation: delegate before the orchestrator reads deep file bodies.
+- Use full evidence discipline and list open unknowns before any go/no-go recommendation.
 - Use a stronger reviewer when available for final investigation review.
 - Require a go/no-go recommendation before implementation.
+
+## Evidence Discipline
+
+Do not present guesses as facts. Hypotheses are allowed only when labeled and supported.
+
+- Label every claim as `Observed`, `Derived`, or `Unknown`.
+- `Observed` means directly read from code, config, schema, tests, logs, or command output.
+- `Derived` means mechanically inferred from listed Observed evidence.
+- `Unknown` means not confirmed yet and must include how to confirm.
+- Do not write a likely cause until at least two supporting Observed items exist; otherwise write `Cause not confirmed`.
+- Avoid "probably", "seems", "maybe", "likely", "should", and "appears" outside a clearly labeled Derived or Unknown section.
+- The orchestrator alone produces Derived findings and final conclusions.
+- Subagents return Observed facts only unless explicitly asked to list Unknowns.
+
+Use route-scaled evidence:
+
+- Fast Track: compact evidence summary is enough.
+- Standard: Evidence Table is required.
+- Heavy: Evidence Table plus Unknowns and risk boundaries is required.
+
+## Atomic Delegation
+
+For Standard or Heavy, delegation is the default. The orchestrator must create at least one Atomic Explorer Ticket before deep file reading.
+
+Each Atomic Explorer Ticket must have:
+
+- exactly one evidence question.
+- one bounded search root inside the Worktree Lock.
+- up to 5 search terms.
+- up to 5 allowed files, or one bounded directory.
+- no product decision, design judgment, broad diagnosis, or implementation decision.
+- an evidence-only output requirement.
+- an output limit.
+
+Delegate if any of these are true:
+
+- cause is unknown.
+- multiple files or layers are involved.
+- DB, query, schema, auth, API, or security behavior is involved.
+- UI and service behavior both need mapping.
+- the user asks about current code behavior.
+- investigation may exceed 3 primary files.
+
+Fast Track may skip subagents only when the target file or symbol is already known, the scope is one file or one symbol, there is no cross-layer behavior, the cause is known, and there is no DB/auth/API/security boundary.
+
+Before sending a ticket, apply the Explorer Ticket Quality Gate from `references/handoff-packets.md`.
 
 ## Subagent Contract
 
@@ -180,13 +232,14 @@ Use the handoff and output formats in `references/handoff-packets.md`.
 3. Classify Fast Track, Standard, or Heavy.
 4. Verify Worktree Lock before any search or file read.
 5. Search narrowly first inside the locked read root: names, routes, symbols, error text, config keys, schema names.
-6. For Standard or Heavy, create and delegate an Explorer Ticket before deep file reading.
+6. For Standard or Heavy, create and delegate an Atomic Explorer Ticket before deep file reading.
 7. Read only files inside the locked read root that explain the code path or impact boundary.
-8. Keep a list of files read and important candidates not read.
-9. Build cause hypotheses from evidence.
-10. Disprove or downgrade weak hypotheses.
-11. Identify the smallest plausible implementation area.
-12. Report risks, blockers, and what should be verified during implementation.
+8. Build the route-scaled evidence summary or Evidence Table.
+9. Keep a list of files read and important candidates not read.
+10. Build cause hypotheses only from Observed evidence.
+11. Disprove or downgrade weak hypotheses.
+12. Identify the smallest plausible implementation area.
+13. Report risks, blockers, and what should be verified during implementation.
 
 For detailed report templates, read `references/report-templates.md`.
 
@@ -213,11 +266,13 @@ Objective:
 Acceptance criteria understood:
 Agents used:
 Delegation gate result:
+Evidence discipline:
 Scope investigated:
 Files read:
 Important candidates not read:
-Evidence:
-Inference:
+Observed evidence:
+Derived findings:
+Unknowns:
 Likely cause / change point:
 Alternative hypotheses:
 Impact area:

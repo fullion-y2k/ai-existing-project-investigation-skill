@@ -68,6 +68,10 @@ $ai-existing-project-investigation
 - Standard 以上では、利用可能なら mini explorer を使う
 - Standard 以上では、オーケストレーターが深いファイル読み取りを始める前に Explorer Ticket を切る
 - オーケストレーターは頭脳として方針・統合・判断に集中し、ファイル読み取りは explorer に寄せる
+- mini explorer には Atomic Explorer Ticket として「1つの証拠質問」だけを渡す
+- mini explorer は Observed facts のみ返し、原因判断・設計判断・実装判断はしない
+- 推測を事実として書かず、Observed / Derived / Unknown を分ける
+- Fast Track は簡易証拠要約、Standard は Evidence Table、Heavy は Evidence Table と Unknowns / risk boundaries を使う
 - evidence と inference を分ける
 - 最後に `Worktree verified` と implementation handoff を出す
 
